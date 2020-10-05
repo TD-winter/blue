@@ -1,4 +1,4 @@
-const flag = 'uat';
+const flag = 'pro';
 if (flag == 'pro') {
   var host = 'https://iot.why-dong.com';
 } else {
