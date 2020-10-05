@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+const apiConfig = require('../../utils/url.js');
 const app = getApp()
 
 Page({
@@ -46,7 +47,32 @@ Page({
     })
   },
   pay: function () {
-    app.pay(0.01)
+    let openId = wx.getStorageSync('openId');
+    let data = {
+      openid: openId,
+      money: 0.01
+    }
+    wx.request({
+      url: apiConfig.api.pay,
+      data: data,
+      method: "POST",
+      dataType: "json",
+      success: (res) => {
+        let data = res.data.data
+        wx.requestPayment({
+          "timeStamp": data.timeStamp,
+          "package": "prepay_id=" + data.prepayId,
+          "nonceStr": data.nonceStr,
+          "signType": "MD5",
+          "paySign": data.paySign,
+          'success': function (res) {
+            console.log("支付成功", res)
+          },
+          'fail': function (res) { },
+          'complete': function (res) { }
+        })
+      }
+    })
   },
   //事件处理函数
   bindViewTap: function () {

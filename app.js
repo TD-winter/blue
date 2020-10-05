@@ -23,7 +23,6 @@ App({
             'Content-Type': 'application/x-www-form-urlencoded', // 默认值
           },
           success: res => {
-            console.log(res.data.openid)
             wx.setStorage({
               key: "openId",
               data: res.data.openid
@@ -53,6 +52,55 @@ App({
             }
           })
         }
+      }
+    })
+  },
+  pay: function (money, fn) {
+    let openId = wx.getStorageSync('openId');
+    let data = {
+      openid: openId,
+      money: money
+    }
+    wx.request({
+      url: apiConfig.api.pay,
+      data: data,
+      method: "POST",
+      dataType: "json",
+      success: (res) => {
+        let data = res.data.data
+        wx.requestPayment({
+          "timeStamp": data.timeStamp,
+          "package": "prepay_id=" + data.prepayId,
+          "nonceStr": data.nonceStr,
+          "signType": "MD5",
+          "paySign": data.paySign,
+          'success': (res) => {
+            if ( typeof(fn) == 'function' ) {
+              fn();
+            }
+            this.addPayHistoryList(data.body, money, this.globalData.userInfo.nickName, openId);
+            console.log("支付成功", res)
+          },
+          'fail': function (res) { },
+          'complete': function (res) { }
+        })
+      }
+    })
+  },
+  addPayHistoryList(title, money, user, openId) {
+    let data = {
+      title: title,
+      money: money,
+      user: user,
+      openId: openId,
+    }
+    wx.request({
+      url: apiConfig.api.addPayHistoryList,
+      data: data,
+      method: "POST",
+      dataType: "json",
+      success: (res) => {
+        console.log(res)
       }
     })
   },

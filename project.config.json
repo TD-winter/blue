@@ -41,13 +41,29 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "blue",
+					"pathName": "pages/bluetoothCupboard/bluetoothCupboard",
+					"query": "q=iot.why-dong.com/wxBluetoothApp/bluetooth? deviceName =BT04-E",
+					"scene": null
+				}
+			]
 		}
 	}
 }

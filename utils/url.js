@@ -2,12 +2,13 @@ const flag = 'uat';
 if (flag == 'pro') {
   var host = 'https://iot.why-dong.com';
 } else {
-  var host = 'http://localhost';
+  var host = 'http://192.168.0.106';
 }
 
 const api = {
   getOpenId: host + '/wxPay/getOpenId',
-  pay: host + '/wxPay/pay'
+  pay: host + '/wxPay/pay',
+  addPayHistoryList: host + '/wxPay/addPayHistoryList'
 };
 
 const request = function (url, data, method, success, fail) {

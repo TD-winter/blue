@@ -1,0 +1,4 @@
+/* pages/bluetoothCupboard/bluetoothCupboard.wxss */
+.pay_btn {
+	margin-top: 200px;
+}
