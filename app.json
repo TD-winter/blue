@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/bluetoothCupboard/bluetoothCupboard",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/bluetoothCupboard/bluetoothCupboard",
     "pages/wxpay/wxpay"
   ],
   "window": {

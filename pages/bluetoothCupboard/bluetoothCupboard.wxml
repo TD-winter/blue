@@ -1,2 +1,8 @@
-<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-<button class="pay_btn" bindtap="pay" data-sendData="1">消 毒</button>
+<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 启用消毒机 </button>
+<view wx:else>
+	<view wx:if="{{deviceName}}">
+		<button wx:if="{{notifyUuid && readUuid && writeUuid}}" class="pay_btn" bindtap="pay" data-sendData="1">消 毒</button>
+		<button wx:else class="init_btn" bindtap="initBluetoothAgain">连接消毒机</button>
+	</view>
+	<button wx:else class="init_btn" bindtap="scanQrCode">扫一扫</button>
+</view>
