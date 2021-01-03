@@ -60,7 +60,7 @@
 					"id": 0,
 					"name": "blue",
 					"pathName": "pages/bluetoothCupboard/bluetoothCupboard",
-					"query": "q=iot.why-dong.com/wxBluetoothApp/bluetooth?deviceName=HC-05",
+					"query": "q=iot.why-dong.com/wxBluetoothApp/bluetooth",
 					"scene": null
 				}
 			]

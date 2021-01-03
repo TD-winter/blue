@@ -244,7 +244,8 @@ Page({
     })
   },
   pay(event) {
-    app.pay(0.01, this.setDataToBlue(event));
+    // app.pay(0.01, this.setDataToBlue(event));
+    this.setDataToBlue(event)
   },
   // 8位，大端存储，0关，1开
   setDataToBlue(event) {
@@ -256,6 +257,8 @@ Page({
     let buffer = new ArrayBuffer(8)
     let dataView = new DataView(buffer)
     dataView.setUint8(0, 1);
+    console.log(buffer)
+    console.log(dataView.getUint8(0))
     wx.writeBLECharacteristicValue({
       deviceId: that.data.deviceId,
       serviceId: that.data.writeServiceId,
@@ -292,9 +295,9 @@ Page({
       scanType: ['qrCode'],
       success (res) {
         console.log(res)
-        if (res.path && res.path.split('deviceName=')[1]) {
+        if (res.result && res.result.split('deviceName=')[1]) {
           that.setData({
-            deviceName: res.path.split('deviceName=')[1]
+            deviceName: res.result.split('deviceName=')[1]
           })
           that.initBluetooth();
         }
