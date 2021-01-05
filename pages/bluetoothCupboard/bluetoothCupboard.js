@@ -17,7 +17,9 @@ Page({
     readUuid: null,
     writeUuid: null,
     notifyUuid: null,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    getBlueData: '',
+    sendData: ''
   },
 
   /**
@@ -215,18 +217,11 @@ Page({
                       success (res) {
                         console.log('notifyBLECharacteristicValueChange success', res.errMsg)
                         wx.onBLECharacteristicValueChange(function(characteristic) {
-                          console.log('characteristic value comed:', characteristic)
                           console.log(that.ab2str(characteristic.value))
-                          console.log(characteristic.value)
-                          // wx.readBLECharacteristicValue({
-                          //   deviceId,
-                          //   serviceId: that.data.readServiceId,
-                          //   characteristicId: that.data.readUuid,
-                          //   success (res) {
-                          //     console.log('readBLECharacteristicValue:', res)
-                          //   }
-                          // })
-                          that.setDataToBlue(null, 1)
+                          that.setData({
+                            getBlueData: that.data.getBlueData + that.ab2str(characteristic.value)
+                          })
+                          that.setDataToBlue(null)
                         })
                       }
                     })
@@ -256,7 +251,7 @@ Page({
     }
     let buffer = new ArrayBuffer(8)
     let dataView = new DataView(buffer)
-    dataView.setUint8(0, 1);
+    dataView.setUint8(0, this.data.sendData);
     console.log(buffer)
     console.log(dataView.getUint8(0))
     wx.writeBLECharacteristicValue({
@@ -268,6 +263,9 @@ Page({
         console.log('writeBLECharacteristicValue success', res)
       }
     })
+  },
+  bindKeyInput(e) {
+    this.data.sendData = e.detail.value;
   },
   ab2str(buffer) {
     return String.fromCharCode.apply(null, new Uint8Array(buffer));

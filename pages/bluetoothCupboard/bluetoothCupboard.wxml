@@ -3,6 +3,8 @@
 	<view wx:if="{{deviceName}}">
 		<button wx:if="{{notifyUuid && readUuid && writeUuid}}" class="pay_btn" bindtap="pay" data-sendData="1">消 毒</button>
 		<button wx:else class="init_btn" bindtap="initBluetoothAgain">连接消毒机</button>
+		<input style="height: 30px;border:1px solid blue;" bindinput="bindKeyInput"  maxlength="8" placeholder="测试发送信息"/>
 	</view>
 	<button wx:else class="init_btn" bindtap="scanQrCode">扫一扫</button>
 </view>
+<text>{{getBlueData}}</text>
