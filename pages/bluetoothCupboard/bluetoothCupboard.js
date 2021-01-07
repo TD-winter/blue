@@ -221,7 +221,7 @@ Page({
                           that.setData({
                             getBlueData: that.data.getBlueData + that.ab2str(characteristic.value)
                           })
-                          that.setDataToBlue(null)
+                          // that.setDataToBlue(null)
                         })
                       }
                     })
@@ -249,7 +249,7 @@ Page({
     if ( event && event.currentTarget.dataset.senddata ) {
       data = event.currentTarget.dataset.senddata;
     }
-    let bufferData = new Uint8Array([169, 1, this.data.sendData])
+    let bufferData = new Uint8Array([221, 0, this.data.sendData])
     wx.writeBLECharacteristicValue({
       deviceId: that.data.deviceId,
       serviceId: that.data.writeServiceId,
