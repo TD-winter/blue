@@ -23,7 +23,7 @@ Page({
     notifyUuid: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     getBlueData: '',
-    sendData: ''
+    sendData: 3
   },
 
   /**
@@ -252,14 +252,18 @@ Page({
     if ( event && event.currentTarget.dataset.senddata ) {
       data = event.currentTarget.dataset.senddata;
     }
-    let buffer = new ArrayBuffer(8)
-    let dataView = new DataView(buffer)
-    dataView.setUint8(0, this.data.sendData);
+
+    // let buffer = new ArrayBuffer(8)
+    // let dataView = new DataView(buffer)
+    // dataView.setUint8(0, this.data.sendData);
+
+    let bufferData = new Uint8Array([221, 0, this.data.sendData])
+
     wx.writeBLECharacteristicValue({
       deviceId: that.data.deviceId,
       serviceId: that.data.writeServiceId,
       characteristicId: that.data.writeUuid,
-      value: buffer,
+      value: bufferData.buffer,
       success (res) {
         console.log('writeBLECharacteristicValue success', res);
         that.setData({
@@ -271,7 +275,7 @@ Page({
     })
   },
   bindKeyInput(e) {
-    this.data.sendData = e.detail.value;
+    this.data.sendData = e.detail.value || 3;
   },
   ab2str(buffer) {
     return String.fromCharCode.apply(null, new Uint8Array(buffer));
