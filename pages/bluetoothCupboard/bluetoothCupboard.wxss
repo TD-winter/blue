@@ -1,4 +1,47 @@
 /* pages/bluetoothCupboard/bluetoothCupboard.wxss */
-.pay_btn, .init_btn {
-	margin-top: 200px;
+.img1 {
+	width: 100%;
+}
+.button_div {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+.button_div button{
+	height: 100rpx;
+	background: #333;
+	color: #fff;
+	border-radius: 0;
+	font-size: 24px;
+	/*line-height: 75rpx;*/
+}
+.disinfect_step2 {
+	width: 100%;
+	position: absolute;
+	top: 500rpx;
+	font-size: 90rpx;
+	color: #fefefe;
+	text-align: center;
+}
+.disinfect_step3 {
+	text-align: center;
+}
+.disinfect_step3 text{
+	margin-top: 140rpx;
+	font-size: 50rpx;
+	font-weight: 600;
+	display: inline-block;
+	vertical-align: middle;
+}
+.disinfect_step3 .gou{
+	width: 50rpx;
+	margin-top: 140rpx;
+	margin-left: 50rpx;
+	display: inline-block;
+	vertical-align: middle;
+}
+.disinfect_step3 .img1 {
+	position: absolute;
+	left: 0;
+	bottom: 0;
 }

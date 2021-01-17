@@ -72,11 +72,11 @@ App({
           "signType": "MD5",
           "paySign": data.paySign,
           'success': (res) => {
+            this.addPayHistoryList(data.body, money, this.globalData.userInfo.nickName, openId);
+            console.log("支付成功", res);
             if ( typeof(fn) == 'function' ) {
               fn();
             }
-            this.addPayHistoryList(data.body, money, this.globalData.userInfo.nickName, openId);
-            console.log("支付成功", res)
           },
           'fail': function (res) { },
           'complete': function (res) { }

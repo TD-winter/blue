@@ -5,8 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    bgImgArr: ['/source/img/img1.jpg', '/source/img/img2.gif', '/source/img/img3.jpg'],
+    bgImg: '/source/img/img1.jpg',
+    downNumber: 3,
     userInfo: {},
     hasUserInfo: false,
+    step: 1, // 表示进入到第几步，状态
     deviceId: '98:DA:A0:00:06:E9',
     deviceName: null,
     serviceIdArray: [],
@@ -221,7 +225,6 @@ Page({
                           that.setData({
                             getBlueData: that.data.getBlueData + that.ab2str(characteristic.value)
                           })
-                          that.setDataToBlue(null)
                         })
                       }
                     })
@@ -239,8 +242,8 @@ Page({
     })
   },
   pay(event) {
-    // app.pay(0.01, this.setDataToBlue(event));
-    this.setDataToBlue(event)
+    app.pay(0.01, this.setDataToBlue);
+    // this.setDataToBlue(event)
   },
   // 8位，大端存储，0关，1开
   setDataToBlue(event) {
@@ -252,15 +255,18 @@ Page({
     let buffer = new ArrayBuffer(8)
     let dataView = new DataView(buffer)
     dataView.setUint8(0, this.data.sendData);
-    console.log(buffer)
-    console.log(dataView.getUint8(0))
     wx.writeBLECharacteristicValue({
       deviceId: that.data.deviceId,
       serviceId: that.data.writeServiceId,
       characteristicId: that.data.writeUuid,
       value: buffer,
       success (res) {
-        console.log('writeBLECharacteristicValue success', res)
+        console.log('writeBLECharacteristicValue success', res);
+        that.setData({
+          bgImg: that.data.bgImgArr[1],
+          step: 2
+        })
+        that.shutDownNumber();
       }
     })
   },
@@ -308,5 +314,19 @@ Page({
       // userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  shutDownNumber: function(){
+    var that = this;
+    var downFn = setInterval(function(){
+      that.setData({
+        downNumber: --that.data.downNumber
+      })
+      if ( that.data.downNumber == 0 ) {
+        that.setData({
+          step: 3
+        })
+        clearInterval(downFn)
+      }
+    }, 1000)
   }
 })

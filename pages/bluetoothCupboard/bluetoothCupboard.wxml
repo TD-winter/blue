@@ -1,10 +1,22 @@
-<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 启用消毒机 </button>
-<view wx:else>
-	<view wx:if="{{deviceName}}">
-		<button wx:if="{{notifyUuid && readUuid && writeUuid}}" class="pay_btn" bindtap="pay" data-sendData="1">消 毒</button>
-		<button wx:else class="init_btn" bindtap="initBluetoothAgain">连接消毒机</button>
-		<input style="height: 30px;border:1px solid blue;" bindinput="bindKeyInput"  maxlength="8" placeholder="测试发送信息"/>
-	</view>
-	<button wx:else class="init_btn" bindtap="scanQrCode">扫一扫</button>
+<image wx:if="{{step == 1 || step == 2}}" class="img1" mode="widthFix"  src='{{bgImg}}'></image>
+<view wx:if="{{!hasUserInfo && canIUse && step == 1 }}" class="button_div">
+	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:100%">启用消毒机 </button>
 </view>
-<text>{{getBlueData}}</text>
+<view class="button_div" wx:elif="{{step == 1}}">
+	<view wx:if="{{deviceName}}">
+		<button wx:if="{{notifyUuid && readUuid && writeUuid}}" class="pay_btn" bindtap="pay" data-sendData="1" style="width:100%">启用消毒机</button>
+		<button wx:else class="init_btn" bindtap="initBluetoothAgain" style="width:100%">重新连接消毒机</button>
+		<!-- <input style="height: 30px;border:1px solid blue;" bindinput="bindKeyInput" maxlength="8" placeholder="测试发送信息"/> -->
+	</view>
+	<button wx:else style="width:100%" class="init_btn" bindtap="scanQrCode">扫码使用</button>
+</view>
+
+<view wx:elif="{{step == 2}}" class="disinfect_step2">
+	<text>消毒中</text><text style="margin-left: 30rpx;font-size: 50rpx;">{{downNumber}}</text>
+</view>
+
+<view wx:elif="{{step == 3}}" class="disinfect_step3">
+	<text>消毒完成</text>
+	<image class="gou" mode="widthFix" src="/source/img/gou.png"></image>
+	<image class="img1" mode="widthFix" src="/source/img/img3.jpg"></image>
+</view>
