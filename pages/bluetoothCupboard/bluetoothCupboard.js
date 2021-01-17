@@ -7,7 +7,7 @@ Page({
   data: {
     bgImgArr: ['/source/img/img1.jpg', '/source/img/img2.gif', '/source/img/img3.jpg'],
     bgImg: '/source/img/img1.jpg',
-    downNumber: 3,
+    downNumber: 10,
     userInfo: {},
     hasUserInfo: false,
     step: 1, // 表示进入到第几步，状态
