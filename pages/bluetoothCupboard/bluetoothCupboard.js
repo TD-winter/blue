@@ -1,5 +1,6 @@
 // pages/bluetoothCupboard/bluetoothCupboard.js
-const app = getApp()
+const app = getApp();
+var backgroundAudioManager = null;
 Page({
   /**
    * 页面的初始数据
@@ -7,7 +8,7 @@ Page({
   data: {
     bgImgArr: ['/source/img/img1.jpg', '/source/img/img2.gif', '/source/img/img3.jpg'],
     bgImg: '/source/img/img1.jpg',
-    downNumber: 10,
+    downNumber: 42,
     userInfo: {},
     hasUserInfo: false,
     step: 1, // 表示进入到第几步，状态
@@ -30,14 +31,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if ( options.deviceName ) {
+      this.setData({
+        deviceName: options.deviceName
+      })
+    }
     let q = decodeURIComponent(options.q);
     if ( q && q.split('deviceName=')[1] ) {
       this.setData({
         deviceName: q.split('deviceName=')[1]
       })
     }
-    
-    console.log(this.data.deviceName)
     if (app.globalData.userInfo) {
       this.setData({
         // userInfo: app.globalData.userInfo,
@@ -269,7 +273,8 @@ Page({
         that.setData({
           bgImg: that.data.bgImgArr[1],
           step: 2
-        })
+        });
+        that.createVoice();
         that.shutDownNumber();
       }
     })
@@ -330,7 +335,14 @@ Page({
           step: 3
         })
         clearInterval(downFn)
+        backgroundAudioManager.src = '/source/voice/02.wav';
       }
     }, 1000)
+  },
+  createVoice: function(){
+    backgroundAudioManager = wx.getBackgroundAudioManager()
+    backgroundAudioManager.title = '消毒柜消毒中...'
+    // 设置了 src 之后会自动播放
+    backgroundAudioManager.src = 'https://winter-voice.oss-cn-hangzhou.aliyuncs.com/mp3/01.wav'
   }
 })
