@@ -24,7 +24,8 @@ Page({
     notifyUuid: null,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     getBlueData: '',
-    sendData: 3
+    sendData: 3,
+    isShowAgreement: false
   },
 
   /**
@@ -344,5 +345,15 @@ Page({
     backgroundAudioManager.title = '消毒柜消毒中...'
     // 设置了 src 之后会自动播放
     backgroundAudioManager.src = 'https://winter-voice.oss-cn-hangzhou.aliyuncs.com/mp3/01.wav'
+  },
+  showAgreement(){
+    this.setData({
+      isShowAgreement: true
+    })
+  },
+  hideAgreement(){
+    this.setData({
+      isShowAgreement: false
+    })
   }
 })
