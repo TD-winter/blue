@@ -1,5 +1,6 @@
 <image wx:if="{{step == 1 || step == 2}}" class="img1" mode="widthFix"  src='{{bgImg}}'></image>
 <view wx:if="{{!hasUserInfo && canIUse && step == 1 }}" class="button_div">
+	<text bindtap="showAgreement" class="agreement_tip">服务协议</text>
 	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:100%">启用消毒机 </button>
 </view>
 <view class="button_div" wx:elif="{{step == 1}}">
