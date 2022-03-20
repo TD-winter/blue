@@ -1,0 +1,43 @@
+<image wx:if="{{step == 1 || step == 2}}" class="img1" mode="widthFix"  src='{{bgImg}}'></image>
+<view wx:if="{{!hasUserInfo && canIUse && step == 1 }}" class="button_div">
+	<text bindtap="showAgreement" class="agreement_tip">服务协议</text>
+	<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:100%">启用消毒机 </button>
+</view>
+<view class="button_div" wx:elif="{{step == 1}}">
+	<view wx:if="{{deviceName}}">
+		<text bindtap="showAgreement" class="agreement_tip">服务协议</text>
+		<button wx:if="{{notifyUuid && readUuid && writeUuid}}" class="pay_btn" bindtap="pay" data-sendData="1" style="width:100%">启用消毒机</button>
+		<button wx:else class="init_btn" bindtap="initBluetoothAgain" style="width:100%">重新连接消毒机</button>
+		<!-- <input style="height: 30px;border:1px solid blue;" bindinput="bindKeyInput" maxlength="8" placeholder="测试发送信息"/> -->
+	</view>
+	<button wx:else style="width:100%" class="init_btn" bindtap="scanQrCode">扫码使用</button>
+</view>
+
+<view wx:elif="{{step == 2}}" class="disinfect_step2">
+	<text>消毒中</text><text style="margin-left: 30rpx;font-size: 50rpx;">{{downNumber}}</text>
+</view>
+
+<view wx:elif="{{step == 3}}" class="disinfect_step3">
+	<text>消毒完成</text>
+	<image class="gou" mode="widthFix" src="/source/img/gou.png"></image>
+	<image class="img1" mode="widthFix" src="/source/img/img3.jpg"></image>
+</view>
+
+<view class="agreement_box" wx:if="{{isShowAgreement}}" bindtap="hideAgreement">
+	<view class="agreement_content">
+		<text class="agreement_h3">服务协议</text>
+		<text class="agreement_title">一、服务概述</text>
+		<text class="agreement_p">本服务条款是用户(您)与我公司之间的协议。我们为您提供智能碗筷消毒服务。西安三杰物联网科技有限公司在此特别提醒用户认真阅读、充分理解本《服务协议》(下称《协议》)各条款,包括免除或者限制西安三杰物联网科技有限公司责任的免责条款及对用户的权利限制条款。请您谨慎阅读并选择接受或不接受本《协议》(未成年人应在法定监护人陪同下阅读)。您的付费行为将视为对本《协议》的接受,并同意接受本《协议》各项条款的约束。</text>
+		<text class="agreement_title">二、用户使用规则</text>
+		<text class="agreement_p">2.1用户自行负担个人上网或第三方收取的通信费、信息费等有关费用。如涉及电信增值服务的,我们建议您与您的电信增值服务提供商确认相关的费用问题。</text>
+		<text class="agreement_p">2.2当您根据菜单选择付费标准并成功付费后,我们将为您打开饭前扫码智能碗筷消毒机,并在服务时间结束后关闭。</text>
+		<text class="agreement_p">2.3消毒机工作期间，不能随意打开机门。</text>
+		<text class="agreement_p">2.4.如果在您支付后2分钟内消毒机未能开始工作,请您及时拨打机器上的服务电话，我们将在3个工作日内经审核后退款到您付费的账户。用户不得以付费后消毒机未能打开为由,自行拆解、破坏消毒机设备,如果可以损坏机器,我们将要求赔偿损失。</text>
+		<text class="agreement_title">三、服务风险及免责声明</text>
+		<text class="agreement_p">3.1用户须明白,本服务仅依其当前所呈现的状况提供,本服务涉及到互联网及相关通信等服务,可能会受到各个环节不稳定因素的影响。</text>
+		<text class="agreement_p">3.2用户须自行确认网络使用本服务时所处的网络环境能够完成支付。</text>
+		<text class="agreement_p">3.3用户须明白,当您所处的网络环境存在不安全因素时请勿使用碗筷消毒机。</text>
+		<text class="agreement_p">3.4用户同意接受通过手机短信、电子邮件、微信软件、支付宝软件或其他合法方式向用户发送商品促销或其他相关商业信息 。</text>
+		<text class="agreement_p">3.5饭前扫码智能消毒机在机器外观上贴有醒目的收费标准，单次收费金额在1元钱左右，如果用户在使用时系统提示需要大额转账时请及时停止付费行为并告知我公司或者是报警处理，牵扯到电信诈骗等问题与我公司无关。</text>
+	</view>
+</view>

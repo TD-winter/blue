@@ -1,8 +1,9 @@
-const flag = 'pro';
+const flag = 'dev';
+var host = ''
 if (flag == 'pro') {
-  var host = 'https://iot.why-dong.com';
+  host = 'https://www.xasjiot.com/';
 } else {
-  var host = 'http://192.168.0.106';
+  host = 'http://127.0.0.1';
 }
 
 const api = {
@@ -12,6 +13,7 @@ const api = {
 };
 
 const request = function (url, data, method, success, fail) {
+  url = host + url
   wx.request({
     url: url,
     data: data,
